@@ -19,7 +19,7 @@ pipeline {
         DEV_DEPLOY_NODE = 'DevNode'
 
         //Openshift
-        OPENSHIFT_CREDENTIAL_NAME = 'openshift-dev-qa-oc-new'
+        OPENSHIFT_CREDENTIAL_NAME = 'LUGTER23-TOKEN'
         OPENSHIFRT_IMAGE_NAME = 'openshift/ubi8-openjdk-11:1.3'
         OPENSHIFT_CLUSTER_DEV_QA_URL = 'https://api.5cd1a00d-8e69-4031-ae4f-2f844396412a.openshift.com'
         OPENSHIFT_NAMESPACE_DEV = 'lugter23-dev'
