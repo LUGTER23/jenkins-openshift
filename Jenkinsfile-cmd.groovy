@@ -41,7 +41,8 @@ pipeline {
                         withCredentials([string(credentialsId: OPENSHIFT_CREDENTIAL_NAME, variable: 'TOKEN_OCP')]) {
                             sh "oc login --token=${TOKEN_OCP} --server=${OPENSHIFT_CLUSTER_DEV_URL} --insecure-skip-tls-verify=true"
                         }
-                        echo "${sh "oc whoami"}"
+                        def whoami = sh "oc whoami"
+                        echo "${whoami}"
                     }
                 }
             }
