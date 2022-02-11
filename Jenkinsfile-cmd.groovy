@@ -34,7 +34,7 @@ pipeline {
         stage('Set Openshift') {
             steps {
                 script {
-                    def ocDir = tool "oc"
+                    def ocDir = tool "oc-client"
                     echo "${ocDir}"
 
                     withEnv(["PATH=${ocDir}:$PATH"]) {
