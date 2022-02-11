@@ -39,10 +39,10 @@ pipeline {
 
                     withEnv(["PATH=${ocDir}:$PATH"]) {
                         withCredentials([string(credentialsId: OPENSHIFT_CREDENTIAL_NAME, variable: 'TOKEN_OCP')]) {
-                            bat "oc login --token=${TOKEN_OCP} --server=${OPENSHIFT_CLUSTER_DEV_URL} --insecure-skip-tls-verify=true"
+                            sh "oc login --token=${TOKEN_OCP} --server=${OPENSHIFT_CLUSTER_DEV_URL} --insecure-skip-tls-verify=true"
                         }
-                        bat "oc project ${OPENSHIFT_NAMESPACE_DEV}"
-                        bat "oc create configmap ${OPENSHIFT_APP_NAME}-config -n ${OPENSHIFT_NAMESPACE_DEV}"
+                        sh "oc project ${OPENSHIFT_NAMESPACE_DEV}"
+                        sh "oc create configmap ${OPENSHIFT_APP_NAME}-config -n ${OPENSHIFT_NAMESPACE_DEV}"
                     }
                 }
             }
