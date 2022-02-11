@@ -19,9 +19,9 @@ pipeline {
         DEV_DEPLOY_NODE = 'DevNode'
 
         //Openshift
-        OPENSHIFT_CREDENTIAL_NAME = 'openshift-dev-qa-oc-new'
+        OPENSHIFT_CREDENTIAL_NAME = 'LUGTER23-TOKEN'
         OPENSHIFRT_IMAGE_NAME = 'openshift/ubi8-openjdk-11:1.3'
-        OPENSHIFT_CLUSTER_DEV_QA_URL = 'https://api.5cd1a00d-8e69-4031-ae4f-2f844396412a.openshift.com'
+        OPENSHIFT_CLUSTER_DEV_URL = 'https://api.sandbox.x8i5.p1.openshiftapps.com:6443'
         OPENSHIFT_NAMESPACE_DEV = 'lugter23-dev'
         OPENSHIFT_APP_NAME = 'demo-git'
         OPENSHIFT_MS_PORT = '8080'
@@ -34,12 +34,12 @@ pipeline {
         stage('Set Openshift') {
             steps {
                 script {
-                    def ocDir = tool "oc-client"
+                    def ocDir = tool "oc"
                     echo "${ocDir}"
 
                     withEnv(["PATH=${ocDir}:$PATH"]) {
                         withCredentials([string(credentialsId: OPENSHIFT_CREDENTIAL_NAME, variable: 'TOKEN_OCP')]) {
-                            sh "oc login --token=sha256~ru2Ir995j1Er-Iag8sVwviFvzysOM6p-fcAWAt3Qi9w --server=https://api.sandbox.x8i5.p1.openshiftapps.com:6443 --insecure-skip-tls-verify=true"
+                            sh "oc login --token=${TOKEN_OCP} --server=${OPENSHIFT_CLUSTER_DEV_URL} --insecure-skip-tls-verify=true"
                         }
                         echo "${sh "oc whoami"}"
                     }
