@@ -94,7 +94,7 @@ pipeline {
             steps {
                 echo 'started maven build'
                 labelledShell(label: "Build",
-                        script: 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.4.11-1.el7_7.x86_64 && java -version && ${MAVEN_PATH}/mvn clean -DskipTests compile')
+                        script: 'export JAVA_HOME=C:\\Program Files\\Java\\jdk-15 && java -version && ${MAVEN_PATH}/mvn clean -DskipTests compile')
             }
         }
 
@@ -102,7 +102,7 @@ pipeline {
             steps {
                 echo 'started maven package'
                 labelledShell(label: "Package",
-                        script: 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.4.11-1.el7_7.x86_64 && java -version && ${MAVEN_PATH}/mvn -Dmaven.test.skip=true package')
+                        script: 'export JAVA_HOME=C:\\Program Files\\Java\\jdk-15 && java -version && ${MAVEN_PATH}/mvn -Dmaven.test.skip=true package')
             }
         }
 
