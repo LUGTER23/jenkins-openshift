@@ -55,19 +55,13 @@ pipeline {
                         sh "oc delete dc/${OPENSHIFT_APP_NAME} --ignore-not-found=true -n ${OPENSHIFT_NAMESPACE_DEV}"
                         sh "oc delete dc/${OPENSHIFT_APP_NAME} --ignore-not-found=true -n ${OPENSHIFT_NAMESPACE_DEV}"
                         sh "oc delete all -l app=${OPENSHIFT_APP_NAME} -n ${OPENSHIFT_NAMESPACE_DEV}"
-                        echo "ea"
                         if (build_config == OPENSHIFT_APP_NAME) {
                             echo "${build_config}"
                             sh "oc delete all -l app=${OPENSHIFT_APP_NAME} -n ${OPENSHIFT_NAMESPACE_DEV}"
                         }
-                        echo "arre"
                         def secret=sh(script: "oc get secret test -o jsonpath='{.data.test1}'",returnStdout: true).trim()
-                        echo "${secret}"
                         sh "oc new-build --binary=true --strategy=source --name=${OPENSHIFT_APP_NAME} --image-stream=${OPENSHIFT_IMAGE_NAME} -e test1=${secret}"
-                        sh "oc create configmap ${OPENSHIFT_APP_NAME}-config -n ${OPENSHIFT_NAMESPACE_DEV}"
-
                         sh "oc new-app ${OPENSHIFT_NAMESPACE_DEV}/${OPENSHIFT_APP_NAME}:latest --name=${OPENSHIFT_APP_NAME} --allow-missing-imagestream-tags=true -n ${OPENSHIFT_NAMESPACE_DEV}"
-
                         sh "oc set resources dc ${OPENSHIFT_APP_NAME} --limits=memory=400Mi,cpu=200m --requests=memory=300Mi,cpu=100m -n ${OPENSHIFT_NAMESPACE_DEV}"
 
                         sh "oc set triggers dc/${OPENSHIFT_APP_NAME} --remove-all -n ${OPENSHIFT_NAMESPACE_DEV}"
