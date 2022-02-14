@@ -94,7 +94,7 @@ pipeline {
             steps {
                 echo 'started maven build'
                 labelledShell(label: "Build",
-                        script: 'export JAVA_HOME=C:/Program Files/Java/jdk-15 && java -version && ${MAVEN_PATH}/mvn clean -DskipTests compile')
+                        script: 'export JAVA_HOME="C:/Program Files/Java/jdk-15" && java -version && ${MAVEN_PATH}/mvn clean -DskipTests compile')
             }
         }
 
