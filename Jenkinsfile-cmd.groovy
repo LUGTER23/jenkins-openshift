@@ -60,11 +60,8 @@ pipeline {
                             echo "${build_config}"
                             sh "oc delete all -l app=${OPENSHIFT_APP_NAME} -n ${OPENSHIFT_NAMESPACE_DEV}"
                         }
-
                         def secret = sh (script: "oc get secret test -o jsonpath='{.data.test1}')",returnStdout: true).trim()
-
-                        sh "oc new-build --binary=true --strategy=source --name=${OPENSHIFT_APP_NAME} --image-stream=${OPENSHIFT_IMAGE_NAME} -n ${OPENSHIFT_NAMESPACE_DEV} -e test1=${secret}"
-
+                        sh "oc new-build --binary=true --strategy=source --name=${OPENSHIFT_APP_NAME} --image-stream=${OPENSHIFT_IMAGE_NAME} -e test1=${secret}"
                         sh "oc create configmap ${OPENSHIFT_APP_NAME}-config -n ${OPENSHIFT_NAMESPACE_DEV}"
 
                         sh "oc new-app ${OPENSHIFT_NAMESPACE_DEV}/${OPENSHIFT_APP_NAME}:latest --name=${OPENSHIFT_APP_NAME} --allow-missing-imagestream-tags=true -n ${OPENSHIFT_NAMESPACE_DEV}"
