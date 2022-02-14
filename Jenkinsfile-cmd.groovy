@@ -9,7 +9,7 @@ pipeline {
 
         //Project
         APP_JAR_PATH = 'demo-0.0.1-SNAPSHOT.jar'
-        MAVEN_PATH = '/opt/jenkins_tools/apache-maven-3.6.0/bin'
+        MAVEN_PATH = 'C:/apache-maven-3.6.3/bin'
         APP_PORT_TO_REPLACE = "8080"
         APP_PORT = "8080"
 
