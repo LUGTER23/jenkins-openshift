@@ -154,7 +154,7 @@ pipeline {
                     withEnv(["PATH=${ocDir}:$PATH"]) {
                         withCredentials([string(credentialsId: OPENSHIFT_CREDENTIAL_NAME, variable: 'TOKEN_OCP')]) {
 
-                            sh "oc login --token=${TOKEN_OCP} ${OPENSHIFT_CLUSTER_DEV_QA_URL} --insecure-skip-tls-verify=true"
+                            sh "oc login --token=${TOKEN_OCP} ${OPENSHIFT_CLUSTER_DEV_URL} --insecure-skip-tls-verify=true"
 
                         }
 
