@@ -148,9 +148,6 @@ pipeline {
                 echo " deploying containter image to dev started..."
 
                 script {
-                    //Replace variables for dev environment
-                    replaceValuesInFile('config_environment/config_dev.properties', 'src/main/resources/application-template.properties', 'src/main/resources/application.properties')
-
                     def ocDir = tool "oc-client"
                     echo "${ocDir}"
 
