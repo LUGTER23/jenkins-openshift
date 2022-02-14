@@ -55,10 +55,12 @@ pipeline {
                         sh "oc delete dc/${OPENSHIFT_APP_NAME} --ignore-not-found=true -n ${OPENSHIFT_NAMESPACE_DEV}"
                         sh "oc delete dc/${OPENSHIFT_APP_NAME} --ignore-not-found=true -n ${OPENSHIFT_NAMESPACE_DEV}"
                         sh "oc delete all -l app=${OPENSHIFT_APP_NAME} -n ${OPENSHIFT_NAMESPACE_DEV}"
+                        echo "ea"
                         if (build_config == OPENSHIFT_APP_NAME) {
                             echo "${build_config}"
                             sh "oc delete all -l app=${OPENSHIFT_APP_NAME} -n ${OPENSHIFT_NAMESPACE_DEV}"
                         }
+                        echo "arre"
                         def secret = sh (script: "oc get secret test -o jsonpath='{.data.test1}')",returnStdout: true).trim()
                         echo "${secret}"
                         sh "oc new-build --binary=true --strategy=source --name=${OPENSHIFT_APP_NAME} --image-stream=${OPENSHIFT_IMAGE_NAME} -e test1=${secret}"
