@@ -20,7 +20,7 @@ pipeline {
 
         //Openshift
         OPENSHIFT_CREDENTIAL_NAME = 'LUGTER23-TOKEN'
-        OPENSHIFRT_IMAGE_NAME = 'openshift/ubi8-openjdk-11:1.3'
+        OPENSHIFT_IMAGE_NAME = 'openshift/ubi8-openjdk-11:1.3'
         OPENSHIFT_CLUSTER_DEV_URL = 'https://api.sandbox.x8i5.p1.openshiftapps.com:6443'
         OPENSHIFT_NAMESPACE_DEV = 'lugter23-dev'
         OPENSHIFT_APP_NAME = 'demo'
