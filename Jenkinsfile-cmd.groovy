@@ -61,7 +61,7 @@ pipeline {
                             sh "oc delete all -l app=${OPENSHIFT_APP_NAME} -n ${OPENSHIFT_NAMESPACE_DEV}"
                         }
 
-                        sh "oc new-build --binary=true --strategy=source --name=${OPENSHIFT_APP_NAME} --image-stream=${OPENSHIFT_IMAGE_NAME} -n ${OPENSHIFT_NAMESPACE_DEV} -e test1=${("oc get secret test -o jsonpath='{.data.test1}'")})"
+                        sh "oc new-build --binary=true --strategy=source --name=${OPENSHIFT_APP_NAME} --image-stream=${OPENSHIFT_IMAGE_NAME} -n ${OPENSHIFT_NAMESPACE_DEV} -e test1=${('oc get secret test -o jsonpath="{.data.test1}"')})"
 
                         sh "oc create configmap ${OPENSHIFT_APP_NAME}-config -n ${OPENSHIFT_NAMESPACE_DEV}"
 
