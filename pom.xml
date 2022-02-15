@@ -42,12 +42,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <environmentVariables>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <test1>${env.SECRET}</test1>
-                    </environmentVariables>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>io.fabric8</groupId>
