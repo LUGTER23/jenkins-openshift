@@ -62,6 +62,7 @@ pipeline {
                         }
                         def secret=sh(script: "oc get secret test -o jsonpath='{.data.test1}'",returnStdout: true).trim()
                         SECRET = secret
+                        echo "${SECRET}"
                         sh "oc new-build --binary=true --strategy=source --name=${OPENSHIFT_APP_NAME} --image-stream=${OPENSHIFT_IMAGE_NAME} -e test1=${secret}"
                         sh "oc new-app ${OPENSHIFT_NAMESPACE_DEV}/${OPENSHIFT_APP_NAME}:latest --name=${OPENSHIFT_APP_NAME} --allow-missing-imagestream-tags=true -n ${OPENSHIFT_NAMESPACE_DEV} --as-deployment-config"
                         sh "oc set resources dc ${OPENSHIFT_APP_NAME} --limits=memory=400Mi,cpu=200m --requests=memory=300Mi,cpu=100m -n ${OPENSHIFT_NAMESPACE_DEV}"
@@ -103,7 +104,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 labelledShell(label: "Execute Unite Test",
-                        script: 'export JAVA_HOME="C:/Program Files/Java/jdk-15" && java -version && ${MAVEN_PATH}/mvn -Dtest1=${env.SECRET} test')
+                        script: 'export JAVA_HOME="C:/Program Files/Java/jdk-15" && java -version && ${MAVEN_PATH}/mvn -D test1=${SECRET} test')
             }
         }
 
