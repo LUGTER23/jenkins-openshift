@@ -15,8 +15,6 @@
     <description>demo</description>
     <properties>
         <java.version>11</java.version>
-        <!--suppress UnresolvedMavenProperty -->
-        <test1>${env.SECRET}</test1>
     </properties>
 
     <dependencies>
@@ -44,6 +42,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <environmentVariables>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <test1>${SECRET}</test1>
+                    </environmentVariables>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>io.fabric8</groupId>
