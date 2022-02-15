@@ -107,7 +107,7 @@ pipeline {
                         script:"""
                             export JAVA_HOME="C:/Program Files/Java/jdk-15" && 
                             export TEST1=${SECRET} &&
-                            echo "${environment.TEST1}" &&
+                            echo "${TEST1}" &&
                             java -version &&
                             ${MAVEN_PATH}/mvn test
 """)
