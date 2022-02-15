@@ -103,15 +103,13 @@ pipeline {
 
         stage('Unit Test') {
             steps {
-                echo "${SECRET}"
-                sh "export TEST1=${SECRET}"
                 labelledShell(label: "Execute Unite Test",
                         script:"""
                             export JAVA_HOME="C:/Program Files/Java/jdk-15" && 
-                            export TEST1=${SECRET} 
-                            echo "${env.TEST1}"
-                            && java -version 
-                            && ${MAVEN_PATH}/mvn test
+                            export TEST1=${SECRET} &&
+                            echo "${environment.TEST1}" &&
+                            java -version &&
+                            ${MAVEN_PATH}/mvn test
 """)
             }
         }
