@@ -12,6 +12,7 @@ pipeline {
         MAVEN_PATH = 'C:/apache-maven-3.6.3/bin'
         APP_PORT_TO_REPLACE = "8080"
         APP_PORT = "8080"
+        SECRET = ""
 
         //Deploy
         PRODUCTION_DEPLOY_NODE = 'QaNode'
@@ -60,6 +61,7 @@ pipeline {
                             sh "oc delete all -l app=${OPENSHIFT_APP_NAME} -n ${OPENSHIFT_NAMESPACE_DEV}"
                         }
                         def secret=sh(script: "oc get secret test -o jsonpath='{.data.test1}'",returnStdout: true).trim()
+                        SECRET = secret
                         sh "oc new-build --binary=true --strategy=source --name=${OPENSHIFT_APP_NAME} --image-stream=${OPENSHIFT_IMAGE_NAME} -e test1=${secret}"
                         sh "oc new-app ${OPENSHIFT_NAMESPACE_DEV}/${OPENSHIFT_APP_NAME}:latest --name=${OPENSHIFT_APP_NAME} --allow-missing-imagestream-tags=true -n ${OPENSHIFT_NAMESPACE_DEV} --as-deployment-config"
                         sh "oc set resources dc ${OPENSHIFT_APP_NAME} --limits=memory=400Mi,cpu=200m --requests=memory=300Mi,cpu=100m -n ${OPENSHIFT_NAMESPACE_DEV}"
@@ -95,6 +97,13 @@ pipeline {
                 echo 'started maven build'
                 labelledShell(label: "Build",
                         script: 'export JAVA_HOME="C:/Program Files/Java/jdk-15" && java -version && ${MAVEN_PATH}/mvn clean -DskipTests compile')
+            }
+        }
+
+        stage('Unit Test') {
+            steps {
+                labelledShell(label: "Execute Unite Test",
+                        script: 'export JAVA_HOME="C:/Program Files/Java/jdk-15" && java -version && ${MAVEN_PATH}/mvn -Dtest1=${SECRET} test')
             }
         }
 
